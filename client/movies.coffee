@@ -1,4 +1,4 @@
-# Declare server Movies collection
+# Declare client Movies collection
 @Movies = new Meteor.Collection "movies"
 
 # Bind moviesTemplate to Movies collection
@@ -17,4 +17,6 @@ Template.movieForm.events =
       director: tmpl.find("#director").value
 
     # add the movie to the db
-    Movies.insert newMovie
+    Meteor.call "addMovie", newMovie, (err, result) ->
+      if (err)
+          alert "Could not add movie " + err.reason
